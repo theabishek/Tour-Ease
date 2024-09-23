@@ -1,0 +1,36 @@
+<!-- availabilityForm.ejs -->
+
+<form id="availability-form" action="/booking/check-availability" method="POST">
+    
+<div id="availability-response">
+    <% if (availabilityMessage) { %>
+        <h5>
+            <%= availabilityMessage %>
+        </h5>
+    <% } %>
+</div>
+
+    <input type="hidden" id="hotelId" name="hotelId" value="<%= hotel._id %>">
+
+    <label for="check-in-avail">Check-in Date:</label>
+    <input type="date" id="check-in-avail" name="checkInDate"
+        min="<%= new Date().toISOString().split('T')[0] %>" required><br>
+
+    <label for="check-out-avail">Check-out Date:</label>
+    <input type="date" id="check-out-avail" name="checkOutDate"
+        min="<%= new Date().toISOString().split('T')[0] %>" required><br>
+
+    <label for="room-type-avail">Room Type:</label>
+    <select id="room-type-avail" name="roomType" required>
+        <% hotel.rooms.forEach(room=> { %>
+            <option value="<%= room.roomType %>">
+                <%= room.roomType %>
+            </option>
+        <% }) %>
+    </select><br>
+
+    <label for="rooms">Number of Rooms:</label>
+    <input type="number" id="rooms" name="rooms" min="1" placeholder="Enter Rooms" required><br>
+
+    <button type="submit">Check Availability</button>
+</form>

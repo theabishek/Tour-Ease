@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Cards</title>
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/allDestination.css" />
+</head>
+
+<body>
+    <%- include('../partials/header') %>
+
+        <!-- Update your EJS template -->
+        <div class="container">
+            <h1>Destinations</h1>
+
+            <div class="search-sort">
+                <input type="text" id="search" placeholder="Search..."
+                    value="<%= typeof query.search !== 'undefined' ? query.search : '' %>">
+                <select id="sort">
+                    <option value="">Sort by...</option>
+                    <optgroup label="Name">
+                        <option value="nameAsc" <%=query.sort==='nameAsc' ? 'selected' : '' %>>Name (A to Z)</option>
+                        <option value="nameDesc" <%=query.sort==='nameDesc' ? 'selected' : '' %>>Name (Z to A)</option>
+                    </optgroup>
+                    <optgroup label="Country">
+                        <option value="countryAsc" <%=query.sort==='countryAsc' ? 'selected' : '' %>>Country (A to Z)
+                        </option>
+                        <option value="countryDesc" <%=query.sort==='countryDesc' ? 'selected' : '' %>>Country (Z to A)
+                        </option>
+                    </optgroup>
+                    <optgroup label="Rating">
+                        <option value="ratingAsc" <%=query.sort==='ratingAsc' ? 'selected' : '' %>>Rating (Low to High)
+                        </option>
+                        <option value="ratingDesc" <%=query.sort==='ratingDesc' ? 'selected' : '' %>>Rating (High to
+                            Low)</option>
+                    </optgroup>
+                    <optgroup label="Price Range">
+                        <option value="priceLow" <%=query.sort==='priceLow' ? 'selected' : '' %>>Price (Low to High)
+                        </option>
+                        <option value="priceHigh" <%=query.sort==='priceHigh' ? 'selected' : '' %>>Price (High to Low)
+                        </option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="destination-cards">
+                <% if (destinations.length> 0) { %>
+                    <%- include('../partials/destinationCards') %>
+                <% } else { %>
+                    <h2 class="no-results-message">Sorry, No destination found. Please try a different search.</h2>
+                <% } %>
+            </div>
+
+            <div class="pagination">
+                <% if (hasPreviousPage) { %>
+                    <a href="/destinations?page=<%= currentPage - 1 %>" class="button">Previous</a>
+                    <% } %>
+                        <% if (hasNextPage) { %>
+                            <a href="/destinations?page=<%= currentPage + 1 %>" class="button">Next</a>
+                            <% } %>
+            </div>
+        </div>   
+
+        <!-- script -->
+        <script src="/js/userScript.js"></script>
+        <script src="/js/headerScript.js"></script>
+        <script src="/js/userScript.js"></script>
+        <script src="/js/headerScript.js"></script>
+        <script>
+            document.getElementById("search").addEventListener("input", function () {
+                fetchDestinationsAndReplace();
+            });
+
+            document.getElementById("sort").addEventListener("change", function () {
+                fetchDestinationsAndReplace();
+            });
+
+            async function fetchDestinationsAndReplace() {
+                const searchValue = document.getElementById("search").value.trim();
+                const sortValue = document.getElementById("sort").value;
+                const queryParams = new URLSearchParams({ search: searchValue, sort: sortValue });
+
+                try {
+                    const response = await fetch(`/destinations?${queryParams.toString()}`);
+                    if (!response.ok) {
+                        throw new Error('Could not fetch destinations');
+                    }
+
+                    const newPageHtml = await response.text();
+                    const tempContainer = document.createElement('div');
+                    tempContainer.innerHTML = newPageHtml;
+
+                    const newDestinationCards = tempContainer.querySelector('.destination-cards');
+                    const noResultsMessage = tempContainer.querySelector('.no-results-message');
+
+                    const oldDestinationCards = document.querySelector('.destination-cards');
+
+                    const destinationCardsElement = document.querySelector('.destination-cards');
+                    if (noResultsMessage) {
+                        destinationCardsElement.innerHTML = noResultsMessage.outerHTML;
+                    } else {
+                        destinationCardsElement.innerHTML = newDestinationCards.innerHTML;
+                    }
+
+                    // Option 2: Update contents of a wrapper div
+                    const contentWrapper = document.querySelector('.destinations-content-wrapper');
+                    if (noResultsMessage) {
+                        contentWrapper.innerHTML = noResultsMessage.outerHTML;
+                    } else {
+                        contentWrapper.innerHTML = newDestinationCards.innerHTML;
+                    }
+
+                    // Re-attach event listeners if necessary
+                    document.getElementById("search").addEventListener("input", fetchDestinationsAndReplace);
+                    document.getElementById("sort").addEventListener("change", fetchDestinationsAndReplace);
+                } catch (error) {
+                    console.error("Error fetching destinations:", error);
+                    // Display a user-friendly error message here
+                }
+            }
+        </script>
+</body>
+
+</html>

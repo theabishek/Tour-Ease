@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Destination</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <style>
+        * {
+            color: #333;
+        }
+
+        /* General Styles */
+        body {
+            background-color: rgb(104, 164, 255);
+            /* Light background for better focus on form*/
+            color: #333;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: #fff;
+            max-width: 500px;
+            margin: 20px auto;
+            /* Centers the form horizontally */
+            padding: 30px;
+            box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.801);
+            border-radius: 30px;
+        }
+
+        /* Form Header */
+        h1 {
+            font-size: 50px;
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Labels and Inputs */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Package Cards */
+        .package-card {
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .package-card:hover {
+            border-color: #007bff;
+        }
+
+        .selected {
+            border-color: #007bff;
+        }
+
+        .package-card h3 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .package-card p {
+            margin-bottom: 5px;
+        }
+
+        /* Submit Button */
+        button[type="submit"] {
+            background-color: #4CAF50;
+            /* Positive action color */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            /* Smooth transition */
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+            /* Slightly darker on hover */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .form-container {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <% include('../partials/header') %>
+    <h1>Book Destination</h1>
+    <div class="form-container">
+        <form action="/destination-booking/confirm" method="POST">
+            <% if (user && user._id) { %>
+            <input type="hidden" name="user_id" value="<%= user._id %>">
+            <% } %>
+            <% if (destination && destination._id) { %>
+            <input type="hidden" name="destination_id" value="<%= destination._id %>">
+            <% } %>
+
+            <h2>Destination Details</h2>
+            <% if (destination) { %>
+            <p><strong>Name:</strong> <%= destination.destinationName %></p>
+            <p><strong>Location:</strong> <%= destination.location.city %>, <%= destination.location.country %></p>
+            <p><strong>Details:</strong> <%= destination.details %></p>
+            <br>
+            <% } %>
+
+            <hr>
+            <br>
+
+            <h2>Booking Details</h2>
+
+            <label for="travel_date">Travel Date:</label>
+            <input type="date" id="travel_date" name="travel_date" min="<%= new Date().toISOString().split('T')[0] %>"
+                required><br>
+
+            <label for="number_of_travelers">Number of Travelers:</label>
+            <input type="number" id="number_of_travelers" name="number_of_travelers" min="1" required><br>
+
+            <h3>Select Package:</h3>
+            <% if (destination && destination.packages) { %>
+            <% destination.packages.forEach(package => { %>
+            <div id="<%= package.name.toLowerCase() %>-package" class="package-card"
+                onclick="selectPackage('<%= package.name.toLowerCase() %>-package')">
+                <h3><%= package.name %> Package</h3>
+                <p><strong>Price:</strong> $<%= package.price.toFixed(2) %></p>
+                <p><strong>Duration (Days):</strong> <%= package.duration_days %></p>
+                <p><strong>Description:</strong> <%= package.description %></p>
+                <p><strong>Inclusions:</strong></p>
+                <ul>
+                    <% package.inclusions.forEach(inclusion => { %>
+                    <li><%= inclusion %></li>
+                    <% }) %>
+                </ul>
+                <p><strong>Accommodations:</strong> <%= package.accommodations %></p>
+            </div>
+            <% }) %>
+            <% } %>
+
+            <input type="hidden" id="selected_package" name="selected_package" value="">
+
+            <label for="total_price">Total Price:</label>
+            <input type="text" id="total_price" name="total_price" readonly><br>
+
+            <button type="submit">Confirm Booking</button>
+        </form>
+    </div>
+    <!-- footer -->
+    <% include('../partials/footer') %>
+
+    <!-- Scripts and other content -->
+</body>
+
+</html>

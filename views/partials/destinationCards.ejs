@@ -1,0 +1,16 @@
+<% destinations.forEach(destination=> { %>
+    <div class="destination-card">
+        <a href="/destinations/<%= destination._id %>">
+            <img src="/<%= destination.images[0] %>" alt="<%= destination.destinationName %>">
+            <div class="card-details">
+                <h2>
+                    <%= destination.destinationName %>
+                </h2>
+                <p class="rating">
+                    <%= destination.rating %>/5
+                </p>
+            </div>
+            <p class="country"><%= destination.country %></p>
+        </a>
+    </div>
+    <% }); %>

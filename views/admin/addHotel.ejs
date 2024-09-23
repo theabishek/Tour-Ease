@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Hotel</title>
+    <link rel="stylesheet" href="/css/addHotel.css">
+</head>
+
+<body>
+    <h1>Add New Hotel</h1>
+
+    <form id="hotelForm" action="/admin/addHotel" method="POST" enctype="multipart/form-data">
+        <!-- Automatically generated hotelID -->
+        <label for="hotelID">Hotel ID:</label>
+        <input type="text" id="hotelID" name="hotelID" readonly>
+        <button type="button" id="refreshHotelID">Refresh</button>
+        <br>
+
+        <label for="hotelName">Name:</label>
+        <input type="text" id="name" name="hotelName" required>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="location[city]" required>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="location[country]" value="India" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" cols="30" rows="10">Nestled in the historic city of Agra, Hotel Vijay offers a welcoming retreat for travelers seeking comfort, convenience, and a touch of Mughal-era charm. Our rooms exude a cozy ambiance, with warm color palettes, comfortable furnishings, and modern amenities to make you feel right at home. Start your day with a delicious breakfast at our on-site restaurant, featuring a blend of regional specialties and classic favorites. After a day of marveling at the architectural wonders of the Taj Mahal and Agra Fort, unwind by the pool or explore the vibrant local markets. At Hotel Vijay, our friendly staff is dedicated to making your stay in Agra a memorable one.</textarea>
+
+        <label for="amenities">Amenities:</label>
+        <input type="text" id="amenities" name="amenities" placeholder="e.g., Pool, Gym, Spa" value="Complimentary Wi-Fi, air conditioning, flat-screen TVs, tea/coffee making facilities, outdoor pool, fitness center, spa, meeting rooms, rooftop lounge">
+
+        <label for="contactPhone">Contact Phone:</label>
+        <input type="tel" id="contactPhone" name="contact[phone]" placeholder="Enter phone number" value="7899978000">
+
+        <label for="contactEmail">Contact Email:</label>
+        <input type="email" id="contactEmail" name="contact[email]" placeholder="Enter email address" value="hotel@gmail.com">
+
+        <label for="contactWebsite">Website:</label>
+        <input type="text" id="contactWebsite" name="contact[website]" placeholder="Enter website URL" value="www.xyzhotel.com">
+
+        <label for="checkInTime">Check-in Time:</label>
+        <input type="time" id="checkInTime" name="policies[checkInTime]" placeholder="Enter check-in time" value="12:00">
+
+        <label for="checkOutTime">Check-out Time:</label>
+        <input type="time" id="checkOutTime" name="policies[checkOutTime]" placeholder="Enter check-out time" value="11:30">
+
+        <label for="cancellationPolicy">Cancellation Policy:</label>
+        <textarea name="policies[cancellationPolicy]" id="cancellationPolicy" cols="30" rows="10">Free cancellation up to 48 hours before check-in. Guests receive a full refund if they cancel with more than 48 hours' notice. Cancellations within 48 hours of check-in will incur a charge of one night's stay. No-shows will be charged the full cost of the reservation.</textarea>
+
+        <label for="images">Images:</label>
+        <input type="file" id="images" name="images" multiple accept="image/*">
+
+        <h3>Room Types</h3>
+        <div id="roomsContainer">
+        </div>
+
+        <button type="button" id="addRoom">Add Room</button>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        // Function to generate a unique hotelID
+        async function generateID() {
+            try {
+                let response = await fetch('/admin/generateID?type=hotel'); // Assuming there's a route for generating hotelID
+                let data = await response.json();
+                document.getElementById('hotelID').value = data.uniqueID;
+            } catch (error) {
+                console.error('Error generating hotelID:', error);
+            }
+        }
+
+        // Call generateID function when the page loads
+        window.onload = generateID;
+
+        // Function to refresh hotel ID
+        async function refreshHotelID() {
+            try {
+                let response = await fetch('/admin/generateID?type=hotel'); // Assuming there's a route for generating hotelID
+                let data = await response.json();
+                document.getElementById('hotelID').value = data.uniqueID;
+            } catch (error) {
+                console.error('Error generating hotelID:', error);
+            }
+        }
+
+        // Event listener for refresh button
+        document.getElementById('refreshHotelID').addEventListener('click', refreshHotelID);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const addRoomButton = document.getElementById('addRoom');
+            const roomsContainer = document.getElementById('roomsContainer');
+            let roomCounter = 1;
+
+            // Function to set default values based on room type
+            function setDefaultValues(roomType) {
+                switch (roomType) {
+                    case 'Basic':
+                        return { price: 1500, roomCapacity: 3, totalRooms: 25 };
+                    case 'Deluxe':
+                        return { price: 2000, roomCapacity: 4, totalRooms: 15 };
+                    case 'Suite':
+                        return { price: 3000, roomCapacity: 5, totalRooms: 10 };
+                    default:
+                        return { price: 0, roomCapacity: 0, totalRooms: 0 };
+                }
+            }
+
+            addRoomButton.addEventListener('click', function () {
+                roomCounter++;
+
+                const roomHtml = `
+                    <div class="room-details">
+                        <label for="roomType${roomCounter}">Room Type:</label>
+                        <select name="rooms[${roomCounter - 1}][roomType]" id="roomType${roomCounter}" class="roomTypeSelect" required>
+                            <option value="">Select Room Type</option>
+                            <option value="Basic">Basic</option>
+                            <option value="Deluxe">Deluxe</option>
+                            <option value="Suite">Suite</option>
+                        </select>
+                        <label for="roomPrice${roomCounter}">Price:</label>
+                        <input type="number" name="rooms[${roomCounter - 1}][roomPrice]" id="roomPrice${roomCounter}" required>
+                        <label for="roomCapacity${roomCounter}">Room Capacity:</label>
+                        <input type="number" name="rooms[${roomCounter - 1}][roomCapacity]" id="roomCapacity${roomCounter}" required max="5">
+                        <label for="totalRooms${roomCounter}">Total Rooms:</label>
+                        <input type="number" name="rooms[${roomCounter - 1}][totalRooms]" id="totalRooms${roomCounter}" required>
+                        <label for="roomDescription${roomCounter}">Room Description:</label>
+                        <textarea name="rooms[${roomCounter - 1}][description]" id="roomDescription${roomCounter}">Comfortable and affordable accommodations. Standard amenities including a comfortable bed, private bathroom, TV, and complimentary Wi-Fi. Perfect for budget-conscious travelers or those needing a simple place to rest.</textarea>
+                        <button type="button" class="removeRoom">Remove</button>
+                    </div>
+                `;
+
+                roomsContainer.insertAdjacentHTML('beforeend', roomHtml);
+
+                // Set default values for the added room
+                const roomTypeSelect = document.getElementById(`roomType${roomCounter}`);
+                const defaultValues = setDefaultValues(roomTypeSelect.value);
+                document.getElementById(`roomPrice${roomCounter}`).value = defaultValues.price;
+                document.getElementById(`roomCapacity${roomCounter}`).value = defaultValues.roomCapacity;
+                document.getElementById(`totalRooms${roomCounter}`).value = defaultValues.totalRooms;
+
+                // Disable selected room type in other dropdowns
+                const selects = document.querySelectorAll('.roomTypeSelect');
+                const selectedOptions = new Set();
+                selects.forEach(select => {
+                    const selectedValue = select.value;
+                    if (selectedValue) {
+                        selectedOptions.add(selectedValue);
+                    }
+                });
+
+                selects.forEach(select => {
+                    Array.from(select.options).forEach(option => {
+                        if (option.value && selectedOptions.has(option.value) && option.value !== select.value) {
+                            option.disabled = true;
+                        } else {
+                            option.disabled = false;
+                        }
+                    });
+                });
+
+                // Update price range dynamically
+                updatePriceRange();
+            });
+
+            roomsContainer.addEventListener('click', function (event) {
+                if (event.target.classList.contains('removeRoom')) {
+                    event.target.parentNode.remove();
+
+                    // Re-enable the removed room type in other dropdowns
+                    const removedRoomType = event.target.parentNode.querySelector('.roomTypeSelect').value;
+                    const selects = document.querySelectorAll('.roomTypeSelect');
+                    selects.forEach(select => {
+                        Array.from(select.options).forEach(option => {
+                            if (option.value === removedRoomType) {
+                                option.disabled = false;
+                            }
+                        });
+                    });
+
+                    // Update price range dynamically after removing room
+                    updatePriceRange();
+                }
+            });
+
+            // Event listener for room type change to set default values
+            roomsContainer.addEventListener('change', function (event) {
+                if (event.target.classList.contains('roomTypeSelect')) {
+                    const roomType = event.target.value;
+                    const roomIndex = event.target.id.replace('roomType', '');
+                    const defaultValues = setDefaultValues(roomType);
+                    document.getElementById(`roomPrice${roomIndex}`).value = defaultValues.price;
+                    document.getElementById(`roomCapacity${roomIndex}`).value = defaultValues.roomCapacity;
+                    document.getElementById(`totalRooms${roomIndex}`).value = defaultValues.totalRooms;
+
+                    // Update price range dynamically after room type change
+                    updatePriceRange();
+                }
+            });
+
+            // Function to update price range dynamically
+            function updatePriceRange() {
+                let minPrice = Infinity;
+                let maxPrice = -Infinity;
+
+                // Iterate over each room price input to find min and max
+                document.querySelectorAll('[id^=roomPrice]').forEach(input => {
+                    const price = parseFloat(input.value);
+                    if (!isNaN(price)) {
+                        if (price < minPrice) minPrice = price;
+                        if (price > maxPrice) maxPrice = price;
+                    }
+                });
+
+                // Update the price range inputs
+                document.getElementById('priceRangeMin').value = minPrice;
+                document.getElementById('priceRangeMax').value = maxPrice;
+            }
+
+        });
+    </script>
+</body>
+
+</html>

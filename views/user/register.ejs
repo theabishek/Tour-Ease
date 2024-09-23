@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+
+<body>
+    <%- include('../partials/header') %>
+
+        <div class="container">
+            <div class="right-div">
+                <h1>Create Account</h1>
+                <form id="registrationForm" action="/auth/register" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="text" name="username" id="username" class="form-control" placeholder="Username"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="tel" name="mobileNo" id="mobileNo" class="form-control" placeholder="Mobile Number"
+                            maxlength="10" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+                    </div>
+
+                    <div class="form-group two-columns">
+                        <div>
+                            <input type="password" name="password" id="password" class="form-control"
+                                placeholder="Password" required minlength="8">
+                        </div>
+                        <div>
+                            <input type="password" name="confirmPassword" id="confirmPassword" class="form-control"
+                                placeholder="Confirm Password" required minlength="8">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="file" name="photo" id="photo" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="checkbox" name="terms" id="terms" required>
+                        <label for="terms" class="terms-placeholder">I agree to the terms and
+                            conditions</label>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="submit">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <%- include('../partials/footer') %>
+
+            <script>
+
+                const fileInput = document.getElementById("photo");
+                const fileSelected = document.getElementById("file-selected");
+
+                fileInput.addEventListener("change", () => {
+                    if (fileInput.files.length > 0) {
+                        fileSelected.textContent = fileInput.files[0].name;
+                    } else {
+                        fileSelected.textContent = "";
+                    }
+                });
+                function displayMessages() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const errorMessage = urlParams.get('error');
+                    const successMessage = urlParams.get('message');
+
+                    if (errorMessage) {
+                        alert(errorMessage); // Display error alert
+                    } else if (successMessage) {
+                        alert(successMessage); // Display success alert
+                    }
+                }
+                // Call the function when the page loads
+                window.onload = displayMessages;
+            </script>
+            <script src="/js/userScript.js"></script>
+            <script src="/js/headerScript.js"></script>
+</body>
+</html>

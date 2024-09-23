@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Submissions</title>
+    <style>
+      /* Fonts */
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+
+      /* Reset default margin and padding */
+      * {
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #292929;
+        color: #ffffff;
+      }
+
+      .submissions-container {
+        padding: 20px;
+      }
+
+      .submissions-container h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .card {
+        background-color: #fff;
+        color: #000;
+        border-radius: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 100%;
+        max-width: 300px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        font-size: 1.2em;
+        font-weight: 500;
+      }
+
+      .card p {
+        margin: 5px 0;
+        font-size: 0.9em;
+      }
+
+      .card .actions {
+        margin-top: 10px;
+      }
+
+      .reply-button {
+        padding: 10px 24px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+      }
+
+      .reply-button:hover {
+        background-color: #0056b3;
+      }
+
+      @media (min-width: 600px) {
+        .cards-container {
+          justify-content: space-around;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../partials/admin-header') %>
+    <div class="submissions-container">
+      <h1>User Query</h1>
+      <div class="cards-container">
+        <% submissions.forEach((submission, index) => { %>
+        <div class="card">
+          <p><strong>First Name:</strong> <%= submission.firstname %></p>
+          <p><strong>Last Name:</strong> <%= submission.lastname %></p>
+          <p><strong>Email:</strong> <%= submission.email %></p>
+          <p><strong>Inquiry Type:</strong> <%= submission.inquiry %></p>
+          <p><strong>Message:</strong> <%= submission.message %></p>
+          <p><strong>At:</strong> <%= new Date(submission.createdAt).toDateString() %></p>
+          <div class="actions">
+            <button
+              class="reply-button"
+              onclick="replyToUser('<%= submission.email %>')"
+            >
+              Reply
+            </button>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <script>
+      function replyToUser(email) {
+        const subject = encodeURIComponent("Reply to your inquiry");
+        const body = encodeURIComponent(
+          "Dear User,\n\nThank you for reaching out. Here is our response to your inquiry:\n\n"
+        );
+        const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+        window.location.href = mailtoLink;
+      }
+    </script>
+  </body>
+  <script src="/js/userScript.js"></script>
+</html>

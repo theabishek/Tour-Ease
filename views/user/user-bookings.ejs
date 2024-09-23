@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Bookings</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Adjust the path if needed -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border-bottom: 1px solid #ccc;
+            padding: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .booking-details {
+            flex: 1;
+            margin-right: 20px;
+            white-space: nowrap;
+        }
+
+        .booking-details div {
+            margin-bottom: 10px;
+        }
+
+        .booking-details strong {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .booking-details .info {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .booking-id {
+            color: #007bff;
+        }
+
+        .status {
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+
+        .status.confirmed {
+            color: #28a745;
+        }
+
+        .status.pending {
+            color: #ffc107;
+        }
+
+        .status.canceled {
+            color: #dc3545;
+        }
+
+        .price::before {
+            content: "₹ ";
+        }
+
+        @media(max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .booking-details strong {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .booking-details .info {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User: <%= user.name %>'s Bookings</h1>
+        <ul>
+            <% bookings.forEach(booking => { %>
+                <li>
+                    <div class="booking-details">
+                        <div>
+                            <strong>Booking ID:</strong>
+                            <span class="info booking-id"><%= booking.booking_id %></span>
+                        </div>
+                        <div>
+                            <strong>Hotel:</strong>
+                            <span class="info"><%= booking.hotel_id.name %></span>
+                        </div>
+                        <div>
+                            <strong>Check-in Date:</strong>
+                            <span class="info"><%= booking.check_in_date %></span>
+                        </div>
+                        <div>
+                            <strong>Check-out Date:</strong>
+                            <span class="info"><%= booking.check_out_date %></span>
+                        </div>
+                        <div>
+                            <strong>Number of Guests:</strong>
+                            <span class="info"><%= booking.number_of_guests %></span>
+                        </div>
+                        <!-- Add number of rooms if available -->
+                        <div>
+                            <strong>Number of Rooms:</strong>
+                            <span class="info"><%= booking.number_of_rooms %></span>
+                        </div>
+                        <div>
+                            <strong>Room Type:</strong>
+                            <span class="info"><%= booking.room_type %></span>
+                        </div>
+                        <div>
+                            <strong>Total Price:</strong>
+                            <span class="info price"><%= booking.total_price.toFixed(2) %></span>
+                        </div>
+                        <div>
+                            <strong>Booking Status:</strong>
+                            <span class="info status <%= booking.booking_status %>"><%= booking.booking_status %></span>
+                        </div>
+                        <div>
+                            <strong>Payment Status:</strong>
+                            <span class="info status <%= booking.payment_status %>"><%= booking.payment_status %></span>
+                        </div>
+                    </div>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+</body>
+</html>

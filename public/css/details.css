@@ -1,0 +1,311 @@
+body {
+	background-color: rgb(34, 34, 34);
+	color: rgb(255, 255, 255);
+}
+
+.container {
+	margin: 0 10px;
+
+	display: flex;
+	flex-direction: row;
+	padding: 10px;
+	height: auto;
+}
+
+.left-container {
+	width: 65%;
+	margin: 1% 2% 1% 5%;
+}
+
+.right-container {
+	width: 35%;
+	margin-right: 5%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.heading {
+	display: flex;
+	justify-content: space-between;
+	margin: 0px auto;
+}
+
+.slideshow-container {
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+.slideshow-image {
+	height: 480px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	overflow: hidden;
+	border: 1px solid #ddd;
+}
+
+.slideshow-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* Ensure the image covers the entire container */
+}
+
+.dots {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+}
+
+.slideshow-dot {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	margin: 5px;
+	border-radius: 50%;
+	background-color: #ccc;
+	cursor: pointer;
+}
+
+.slideshow-dot.active {
+	height: 15px;
+	width: 15px;
+	background-color: #007bff;
+}
+
+.other-details {
+	width: 90%;
+	margin: 0px auto;
+}
+
+/* In details.css */
+.other-details
+	.detail-content:not(#hotel-id):not(#description):not(#room-types) {
+	display: none; /* Hide content initially */
+}
+
+.other-details .detail-content {
+	margin-bottom: 10px;
+}
+
+.other-details h3 {
+	cursor: pointer; /* Indicate clickability */
+	background-color: #007bff;
+	margin-bottom: 10px;
+	padding: 5px 5px 5px 10px;
+	border-radius: 5px;
+}
+
+.location {
+	margin-bottom: 10px;
+}
+
+ul {
+	list-style-type: none; /* Removes bullets from all lists */
+}
+
+/* Media Query for mobile view */
+@media only screen and (max-width: 900px) {
+	.container {
+		flex-direction: column;
+	}
+
+	.left-container {
+		width: 100%;
+		margin: 1% 0;
+	}
+
+	.right-container {
+		width: 100%;
+		margin-right: 0;
+	}
+	.slideshow-image {
+		height: 100%;
+	}
+}
+
+/* Style for the Availability Check section */
+.availability-check {
+	margin: 30px 0;
+	border: 1px solid #ddd;
+	padding: 20px;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+	border-radius: 30px;
+	width: 90%;
+}
+
+.availability-check h3 {
+	color: #ffffff;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+.availability-check label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.availability-check input,
+.availability-check select {
+	width: 100%;
+	padding: 8px;
+	margin-bottom: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.availability-check button[type="submit"] {
+	background-color: #4caf50;
+	/* Example: Green background */
+	color: white;
+	padding: 8px 18px;
+	border: none;
+	border-radius: 30px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	/* Smooth transition on hover */
+}
+
+.availability-check button[type="submit"]:hover {
+	background-color: #45a049;
+	/* Slightly darker shade of green */
+}
+
+.book-now-button {
+	background-color: #007bff;
+	color: white;
+	padding: 8px 20px;
+	text-decoration: none;
+	border-radius: 30px;
+	display: block;
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.book-button {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.book-button h2 {
+	flex-grow: 1;
+	margin-right: 20px;
+}
+
+.book-now-button:hover {
+	background-color: #0056b3;
+	font-weight: bold;
+}
+
+#availability-response h5 {
+	margin: 10px 0;
+	color: #60ffb5;
+}
+
+/* Reviews Section */
+.reviews {
+	margin-top: 20px;
+}
+
+/* Review Container */
+.review {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 15px;
+	position: relative;
+	/* Ensure relative positioning for absolute positioning of delete button */
+}
+
+.review h4 {
+	margin-top: 0;
+	margin-bottom: 5px;
+}
+
+.review p {
+	margin: 5px 0;
+}
+
+/* Delete Button */
+.delete-btn {
+	background-color: #dc3545;
+	color: #fff;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 30px;
+	cursor: pointer;
+	position: absolute;
+	font-weight: bold;
+	top: 6px;
+	right: 6px;
+}
+
+.delete-btn:hover {
+	background-color: #c82333;
+}
+
+/* Add Review Section */
+.add-review {
+	margin-top: 30px;
+}
+
+.add-review h2 {
+	margin-top: 0;
+	margin-bottom: 15px;
+}
+
+.add-review label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.add-review input[type="number"],
+.add-review textarea {
+	width: 100%;
+	padding: 8px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+.add-review button[type="submit"] {
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	font-size: 15px;
+	padding: 8px 20px;
+	border-radius: 30px;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.add-review button[type="submit"]:hover {
+	background-color: #0056b3;
+	font-weight: bold;
+}
+
+/* Login Link Section */
+.login-link {
+	margin-top: 30px;
+}
+
+.login-link p {
+	margin: 0;
+}
+
+.login-link a {
+	color: #007bff;
+	text-decoration: none;
+}
+
+.login-link a:hover {
+	font-weight: bold;
+}

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/styles.css?v=1.0">
+    <link rel="stylesheet" href="/css/header.css?v=1.0">
+    <link rel="stylesheet" href="/css/footer.css?v=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/default/favicon.png">
+    <style>
+        /* Common CSS for cards */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Fixed width for cards */
+            grid-gap: 25px;
+            margin-bottom: 30px;
+            color: black;
+        }
+
+        .card {
+            border-radius: 30px;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            transition: color 0.3s, background-color 0.3s; /* Apply transition to the card */
+        }
+
+        .card:hover {
+            color: rgb(255, 255, 255); /* Change text color on hover */
+            background-color: #294165;
+        }
+
+        .card img {
+            border-radius: 20px;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .top-card-details {
+            padding: 0 15px 0px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bottom-card-details {
+            padding: 0px 15px 15px 15px;
+        }
+
+        .card a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .card:hover a {
+            color: rgb(255, 255, 255); /* Change link color on hover */
+        }
+
+        /* Additional styles for location */
+        .card:hover .location {
+            color: rgb(255, 255, 255); /* Change location color on hover */
+        }
+
+        .card a:active,
+        .card a:focus {
+            outline: none;
+        }
+
+        .section {
+            margin: 30px 30px 50px 30px;
+        }
+
+        .heading {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px;
+        }
+
+        .card-details {
+            padding: 0 15px 0 15px;
+            display: flex;
+            justify-content: space-between;
+
+        }
+
+        .country {
+            padding: 0 15px 0 15px;
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 1200px) {
+            .card-container {
+                grid-template-columns: repeat(3, 1fr); /* Change to 3 columns */
+            }
+        }
+
+        @media screen and (max-width: 800px) {
+            .card-container {
+                grid-template-columns: repeat(2, 1fr); /* Change to 2 columns */
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .card-container {
+                grid-template-columns: 1fr; /* Change to 1 column */
+            }
+
+            .card {
+                width: 100%; /* Take full width */
+            }
+        }
+
+        /* Empty placeholder box */
+        .empty-card {
+            border-radius: 30px;
+            padding: 10px;
+            background-color: #ccc; /* Light gray background */
+            box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .view-all {
+            font-weight: bold;
+            text-decoration: none !important;
+        }
+        
+        .view-all:hover {
+            font-weight: bold;
+        }
+
+        .book-now {
+            text-decoration: none;
+            background-color: rgb(255, 0, 102);
+            padding: 10px 16px;
+            margin: 30px;
+            border-radius: 30px;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div id="home-container" class="container">
+        <!-- Header -->
+        <%- include('../partials/header') %>
+
+        <!-- Home Content -->
+        <div id="home">
+            <p>"Dive into the world of Unforgettable Adventures"</p>
+            <h1 class="travel">WELCOME TO, TOUREASE!</h1>
+
+            <a href="/destinations" class="book-now">BOOK NOW</a>
+        </div>
+    </div>
+
+    <!-- Hotels Section -->
+    <div class="section">
+        <div class="heading">
+            <h2>Top Hotels ></h2>
+            <a href="/hotels" class="view-all">All Hotels</a>
+        </div>
+        <div class="card-container">
+            <% 
+                if (hotels.length > 0) {
+                    hotels.slice(0, 4).forEach(hotel => { %>
+                        <div class="card">
+                            <a href="/hotels/<%= hotel._id %>">
+                                <img src="/<%= hotel.images[0] %>" alt="<%= hotel.hotelName %>">
+                                <div class="top-card-details">
+                                    <h2><%= hotel.hotelName %></h2>
+                                    <p class="rating"><%= hotel.rating %>/5</p>
+                                </div>
+                                <div class="bottom-card-details">
+                                    <p class="location"><%= hotel.location.city %>, <%= hotel.location.country %></p>
+                                </div>
+                            </a>
+                        </div>
+                    <% }); 
+                } else {
+                    // Show 4 empty placeholder boxes
+                    for (let i = 0; i < 4; i++) { %>
+                        <div class="card empty-card">
+                            <!-- Empty Card -->
+                        </div>
+                    <% }
+                } 
+            %>
+        </div>
+    </div>
+
+    <!-- Destinations Section -->
+    <div class="section">
+        <div class="heading">
+            <h2>Top Destinations ></h2>
+            <a href="/destinations" class="view-all">All Destinations</a>
+        </div>
+        <div class="card-container">
+            <% 
+                if (destinations.length > 0) {
+                    destinations.slice(0, 4).forEach(destination => { %>
+                        <div class="card">
+                            <a href="/destinations/<%= destination._id %>">
+                                <img src="/<%= destination.images[0] %>" alt="<%= destination.destinationName %>">
+                                <div class="card-details">
+                                    <h2><%= destination.destinationName %></h2>
+                                    <p class="rating"><%= destination.rating %>/5</p>
+                                </div>
+                                <p class="country"><%= destination.country %></p>
+                            </a>
+                        </div>
+                    <% }); 
+                } else {
+                    // Show 4 empty placeholder boxes
+                    for (let i = 0; i < 4; i++) { %>
+                        <div class="card empty-card">
+                            <!-- Empty Card -->
+                        </div>
+                    <% }
+                } 
+            %>
+        </div>
+    </div>
+
+    <!-- contact us -->
+    <div class="contact-us">
+        <div class="contact-left">
+            <h2>CALL TO ACTION</h2><br>
+            <h1>READY FOR UNFORGETTABLE TRAVEL.<br> REMEMBER US!</h1><br>
+            <p>For any inquiries or assistance, feel free to reach out to us. Our team is here to help you make your
+                travel dreams a reality.</p>
+        </div>
+        <div class="contact-right">
+            <button onclick="redirectToContact()">Contact Us</button>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <%- include('../partials/footer') %>
+
+    <!-- script -->
+    <script src="/js/userScript.js"></script>
+    <script src="/js/headerScript.js"></script>
+    <script>
+        function redirectToContact() {
+            window.location.href = "/contactUs";
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,160 @@
+/* header styles */
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Poppins', sans-serif;
+	box-sizing: border-box;
+
+}
+
+nav {
+	width: 100%;
+	height: min-content;
+	padding: 10px 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position : relative;
+	font-size: large;
+	color: rgb(255, 255, 255);
+}
+
+.logo {
+	width: 150px;
+	height: max-content;
+	margin-left: 5%;
+	cursor: pointer;
+}
+
+.user-pic {
+	width: 45px;
+	border-radius: 50%;
+	cursor: pointer;
+	margin-left: 50px;
+	margin-right: 5%;
+	border: 2px solid black;
+}
+
+nav ul {
+	width: 100%;
+	text-align: right;
+}
+
+nav ul li {
+	display: inline-block;
+	list-style: none;
+	margin: 10px 20px; 
+}
+
+nav ul li a {
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.login {
+	margin-right: 5%;
+	margin-left: 10px;
+}
+
+.login-button {
+	font-weight: bold;
+	margin-bottom: 0px;
+	width: max-content;
+	padding: 5px 20px;
+	background-color: rgb(78, 100, 238);
+	border: none;
+	border-radius: 50px;
+	cursor: pointer;
+	transition: all 0.3s ease 0s;
+	text-decoration: none;
+	font-size: large;
+	vertical-align: middle;
+	color: #ffffff;
+}
+
+.login-button:hover {
+	background-color: rgb(58, 80, 238); /* Adjusted */
+}
+
+.sub-menu-wrap {
+	position: absolute;
+	top: 100%;
+	right: 5%;
+	width: 330px;
+	max-height: 0px;
+	overflow: hidden;
+	transition: max-height 0.3s;
+}
+
+.sub-menu-wrap.open-menu {
+	max-height: 400px;
+}
+
+.sub-menu {
+	background: #294165;
+	padding: 20px;
+	margin: 10px;
+	border-radius: 30px;
+}
+
+.user-info {
+	display: flex;
+	align-items: center;
+}
+
+.user-info h3 {
+	font-weight: 500;
+	color: white;
+}
+
+.user-info img{
+	width: 60px;
+	border-radius: 50%;
+	margin-right: 15px;
+	border: 3px solid black;
+}
+
+.sub-menu hr {
+	border: 0;
+	height: 1px;
+	width: 100%;
+	background: #ccc;
+	margin: 15px 0 10px;
+}
+
+.sub-menu-link {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	margin: 12px 0;
+	color: white;
+}
+
+.sub-menu-link p {
+	width: 100%;
+	color: white;
+	color: white;
+}
+
+.sub-menu-link img {
+	width: 40px;
+	background: #000000;
+	border-radius: 50%;
+	padding: 8px;
+	margin-right: 15px;
+}
+
+.sub-menu-link span {
+	font-size: 22px;
+	transition: transform 0.5s;
+	color: white;
+}
+
+.sub-menu-link:hover span {
+	transform: translateX(5px);
+}
+
+.sub-menu-link:hover p {
+	font-weight: 600;
+}

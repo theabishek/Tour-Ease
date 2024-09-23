@@ -1,0 +1,218 @@
+<h1 class="stats">Stats</h1>
+<div class="stats-container">
+    <div class="stat-item">
+      <div class="circle">
+        <span><%= totalHotels %></span>
+      </div>
+      <span class="label">Total Hotels</span>
+    </div>
+    <div class="stat-item">
+      <div class="circle">
+        <span><%= totalDestinations %></span>
+      </div>
+      <span class="label">Total Destinations</span>
+    </div>
+    <div class="stat-item">
+      <div class="circle">
+        <span><%= totalBookings %></span>
+      </div>
+      <span class="label">Total Bookings</span>
+    </div>
+    <div class="stat-item">
+      <div class="circle">
+        <span><%= totalPassengers %></span>
+      </div>
+      <span class="label">Total Passengers</span>
+    </div>
+  </div>
+  
+  <div class="top-container">
+    <h1 class="stats">Top Hotels</h1>
+    <div class="top-items">
+      <table id="hotels-table">
+        <thead class="header-row">
+          <tr>
+            <th>S.No</th>
+            <th>Hotel Name</th>
+            <th>Location</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  
+    <h1 class="stats">Top Destinations</h1>
+    <div class="top-items">
+      <table id="destinations-table">
+        <thead class="header-row">
+          <tr>
+            <th>S.No</th>
+            <th>Destination Name</th>
+            <th>Country</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  
+  <style>
+    .stats-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      text-align: center;
+      margin: 20px;
+      padding: 20px;
+      border: 1px solid white;
+      border-radius: 30px;
+    }
+  
+    .stats {
+        margin-left: 30px;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 10px;
+    }
+  
+    .stat-item .circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: #006aff;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 4.5em;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  
+    .stat-item .label {
+      margin-top: 10px;
+      font-size: 1em;
+      font-weight: bold;
+    }
+
+    .top-items {
+      border: 1px solid white;
+      border-radius: 30px;      
+      margin: 20px;
+      padding: 20px;
+    }
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      border-radius: 30px;
+      overflow: hidden;
+    }
+    
+    th,
+    td {
+        padding: 12px;
+        text-align: left;
+        text-align: center;
+    }
+  
+    .header-row th {
+      padding: 10px;
+      background-color: #24252a;
+      color: #fff;
+    }
+  
+    .golden {
+      background-color: #006aff;
+    }
+  
+    .silver {
+      background-color: #0080ff;
+    }
+  
+    .bronze {
+      background-color: #0099ff;
+    }
+  
+    .other {
+      background-color: #00b3ff;
+      color: #171921 !important;
+    }
+  </style>
+  
+  <script>
+      // Function to fetch top hotels
+      function fetchTopHotels() {
+          fetch('/adminDashboard/top-hotels')
+              .then(response => response.json())
+              .then(data => {
+                  const tableBody = document.querySelector('#hotels-table tbody');
+                  tableBody.innerHTML = data.map((hotel, index) => {
+                      let rowClass = '';
+                      if (index === 0) {
+                          rowClass = 'golden';
+                      } else if (index === 1) {
+                          rowClass = 'silver';
+                      } else if (index === 2) {
+                          rowClass = 'bronze';
+                      } else {
+                          rowClass = 'other';
+                      }
+                      return `
+                          <tr class="${rowClass}">
+                              <td>${index + 1}</td>
+                              <td>${hotel.hotelName}</td>
+                              <td>${hotel.location.city}, ${hotel.location.country}</td>
+                              <td>${hotel.rating}</td>
+                          </tr>
+                      `;
+                  }).join('');
+              })
+              .catch(error => console.error('Error fetching top hotels:', error));
+      }
+  
+      // Function to fetch top destinations
+      function fetchTopDestinations() {
+          fetch('/adminDashboard/top-destinations')
+              .then(response => response.json())
+              .then(data => {
+                  const tableBody = document.querySelector('#destinations-table tbody');
+                  tableBody.innerHTML = data.map((destination, index) => {
+                      let rowClass = '';
+                      if (index === 0) {
+                          rowClass = 'golden';
+                      } else if (index === 1) {
+                          rowClass = 'silver';
+                      } else if (index === 2) {
+                          rowClass = 'bronze';
+                      } else {
+                          rowClass = 'other';
+                      }
+                      return `
+                          <tr class="${rowClass}">
+                              <td>${index + 1}</td>
+                              <td>${destination.destinationName}</td>
+                              <td>${destination.country}</td>
+                              <td>${destination.rating}</td>
+                          </tr>
+                      `;
+                  }).join('');
+              })
+              .catch(error => console.error('Error fetching top destinations:', error));
+      }
+  
+      // Fetch data when the page loads
+      window.onload = () => {
+          fetchTopHotels();
+          fetchTopDestinations();
+      };
+  </script>
+  

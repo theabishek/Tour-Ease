@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Destination</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>/* Fonts */
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+  
+        /* Reset default margin and padding */
+        * {
+          box-sizing: border-box;
+          font-family: "Poppins", sans-serif;
+        }
+        body {
+          margin: 0;
+          padding: 0;
+          background-color: #292929;
+          color: #ffffff;
+        }
+
+        .form-container {
+            padding: 20px 50px 50px 50px;
+            margin: 0 10%;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .form-group button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .image-preview {
+            margin-top: 10px;
+        }
+        .image-preview img {
+            max-width: 100px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('../partials/admin-header') %>
+    <div class="form-container">
+        <h1>Edit Destination</h1>
+        <form action="/adminDashboard/edit-destination/<%= destination._id %>" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="destinationName">Destination Name</label>
+                <input type="text" id="destinationName" name="destinationName" value="<%= destination.destinationName %>" required>
+            </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" id="country" name="country" value="<%= destination.country %>" required>
+            </div>
+            <div class="form-group">
+                <label for="activities">Activities (comma separated)</label>
+                <textarea id="activities" name="activities" rows="3" required><%= destination.activities.join(',') %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="bestFor">Best For (comma separated)</label>
+                <textarea id="bestFor" name="bestFor" rows="3" required><%= destination.bestFor.join(',') %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="transportOptions">Transport Options (comma separated)</label>
+                <textarea id="transportOptions" name="transportOptions" rows="3" required><%= destination.transportOptions.join(',') %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="5" required><%= destination.description %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="languages">Languages (comma separated)</label>
+                <textarea id="languages" name="languages" rows="3" required><%= destination.languages.join(',') %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="cuisine">Cuisine (comma separated)</label>
+                <textarea id="cuisine" name="cuisine" rows="3" required><%= destination.cuisine.join(',') %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="bestTime">Best Time (comma separated)</label>
+                <textarea id="bestTime" name="bestTime" rows="3" required><%= destination.bestTime.join(',') %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="images">Upload New Images (optional)</label>
+                <input type="file" id="images" name="images" accept="image/*" multiple>
+            </div>
+            <div class="form-group">
+                <button type="submit">Update Destination</button>
+            </div>
+        </form>
+        <div class="image-preview">
+            <h3>Current Images:</h3>
+            <% destination.images.forEach(image => { %>
+            <img src="/<%= image %>" alt="Destination Image">
+            <% }) %>
+        </div>
+    </div>
+</body>
+</html>

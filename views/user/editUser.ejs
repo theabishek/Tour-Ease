@@ -1,0 +1,91 @@
+<!-- views/editUser.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+<style>
+    /* Basic Styling */
+body {
+  font-family: sans-serif;
+  margin: 0;
+  display: flex; /* Use flexbox for easy centering */
+  min-height: 100vh; /* Ensure the body covers the full viewport height */
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f4f4; /* Light background color */
+}
+
+.container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 300px; /* Adjust the width as needed */
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column; /* Arrange elements vertically */
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <form action="/users/<%= user.username %>/edit" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<%= user.name %>"><br>
+    
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<%= user.email %>"><br>
+    
+            <label for="mobileNo">Mobile No:</label>
+            <input type="text" id="mobileNo" name="mobileNo" value="<%= user.mobileNo %>"><br>
+    
+            <!-- New Password and Confirm Password fields -->
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" name="newPassword"><br>
+    
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword"><br>
+    
+            <button type="submit">Update</button>
+        </form>
+
+    </div>
+</body>
+</html>

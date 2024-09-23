@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+
+<body>
+    <%- include('../partials/header') %>
+        <div class="container">
+            <div class="login-form">
+                <h1>Welcome Back!</h1>
+                <% if (error) { %>
+                    <p class="error" style="color: red">
+                        <%= error %>
+                    </p>
+                    <% } %>
+                        <form action="/auth/login" method="POST">
+                            <div>
+                                <label for="identifier">Email or Username:</label>
+                                <input type="text" name="identifier" id="identifier" required>
+                            </div>
+                            <div>
+                                <label for="password">Password:</label>
+                                <input type="password" name="password" id="password" required>
+                            </div>
+                            <div class="submit-btn">
+                                <button type="submit" class="submit">LOG IN </button>
+                            </div>
+                        </form>
+                        <div class="divider">
+                            <div class="divider-line"></div>
+                            <div class="divider-text">Or Log In</div>
+                            <div class="divider-line"></div>
+                        </div>
+                        <div class="social-login-buttons">
+                            <button class="google-btn" onclick="comingSoonAlert()">
+                                <img src="/images/default/google.png" alt="Google logo">
+                            </button>
+
+                            <button class="facebook-btn" onclick="comingSoonAlert()">
+                                <img src="/images/default/facebook.png" alt="Facebook logo">
+                            </button>
+                        </div>
+
+                        <p>Don't have an account? <a href="/auth/register">Register now!</a></p>
+            </div>
+        </div>
+        <%- include('../partials/footer') %>
+            <script src="/js/userScript.js"></script>
+            <script src="/js/headerScript.js"></script>
+            <script>
+                function comingSoonAlert() {
+                    alert("Coming Soon!");
+                }
+                function displayMessages() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const errorMessage = urlParams.get('error');
+                    const successMessage = urlParams.get('message');
+
+                    if (errorMessage) {
+                        alert(errorMessage); // Display error alert
+                    } else if (successMessage) {
+                        alert(successMessage); // Display success alert
+                    }
+                }
+
+                // Call the function when the page loads
+                window.onload = displayMessages;
+
+            </script>
+</body>
+
+</html>

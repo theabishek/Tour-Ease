@@ -1,0 +1,44 @@
+<header class="hero">
+    <nav>
+        <img src="/images/default/white-logo.png" alt="" class="logo" id="logo">
+        <ul>
+            <li class="navlist"><a href="/hotels">Hotels</a></li>
+            <li class="navlist"><a href="/destinations">Destinations</a></li>
+            <li class="navlist"><a href="/contactUs">Contact</a></li>
+            <!-- <li class="navlist"><a href="/aboutus">About Us</a></li> -->
+            <li class="navlist"><a href="/adminDashboard/">Admin</a></li>
+            <link rel="icon" type="image/x-icon" href="/images/default/favicon.png">
+        </ul>
+        <% if (user) { %>
+            <img src="/uploads/user-pic/<%= user.photo %>" class="user-pic" onclick="toggleMenu()">
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="user-info">
+                        <img src="/uploads/user-pic/<%= user.photo %>" alt="user images">
+                        <h2 style="color: white"><%= user.name %></h2>
+                    </div>
+                    <hr>
+                    <a href="/users/<%= user.username %>/edit" class="sub-menu-link">
+                        <img src="/images/default/profile.png" alt="profile">
+                        <p>Edit profile</p>
+                        <span>></span>
+                    </a>
+                    <a href="/booking/user-bookings" class="sub-menu-link">
+                        <img src="/images/default/help.png" alt="profile">
+                        <p>View Bookings</p>
+                        <span>></span>
+                    </a>
+                    <a href="/auth/logout" class="sub-menu-link">
+                        <img src="/images/default/logout.png" alt="profile">
+                        <p>Logout</p>
+                        <span>></span>
+                    </a>
+                </div>
+            </div>
+        <% } else { %>
+            <form action="/auth/login" method="GET" class="login"> <!-- Changed to form for button -->
+                <button type="submit" class="login-button">LOG IN</button> <!-- Changed to button -->
+            </form>
+        <% } %>
+    </nav>
+</header>

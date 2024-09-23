@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/header.css" />
+<link rel="stylesheet" href="/css/footer.css" />
+<title>Contact Us</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: rgb(34, 34, 34);
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 78vh;
+        margin: 2% 5% 2% 5%;
+    }
+    .contact-left {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        padding: 5%;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        height: 90%;
+        justify-content: center;
+        border-radius: 30px 0 0 30px;
+    }
+    
+    .contact-left h2 {
+        margin-bottom: 10%
+    }
+    .contact-right {
+        width: 30%;
+        display: flex;
+        padding: 20px;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        height: 90%;
+        border-radius: 0 30px 30px 0;
+    }
+    .contact-right form {
+        max-width: 400px;
+        margin: auto;
+    }
+    .contact-right form input[type="text"],
+    .contact-right form input[type="email"],
+    .contact-right form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-sizing: border-box;
+        background-color: #ccc;
+    }
+    .contact-right form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-sizing: border-box;
+        background-color: #ccc;
+
+    }
+    .contact-right form input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 30px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+    }
+    .contact-right form input[type="submit"]:hover {
+        font-weight: bold;
+        background-color: #0056b3;
+    }
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+        }
+        .contact-right {
+            margin-left: 0;
+            margin-top: 20px;
+        }
+    }
+</style>
+</head>
+<body>
+<%- include('../partials/header') %>
+<div class="container">
+    <div class="contact-left">
+        <h2>Contact Us</h2>
+        <p>Need to get in touch with us? Either fill out the form with your inquiry or find the department email you'd like to contact below.</p>
+    </div>
+    <div class="contact-right">
+        <form action="/submitQuery" method="post">
+            <input type="text" name="firstname" placeholder="First Name" required>
+            <input type="text" name="lastname" placeholder="Last Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <select name="inquiry" required>
+                <option value="" disabled selected>Select an Option</option>
+                <option value="General Inquiry">General Inquiry</option>
+                <option value="Sales">Sales</option>
+                <option value="Support">Support</option>
+                <option value="Feedback">Feedback</option>
+                <option value="Other">Other</option>
+            </select>
+            <textarea name="message" rows="5" placeholder="What can we help you with?" required></textarea>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+    <!-- footer -->
+    <%- include('../partials/footer') %>
+
+</body>
+
+<script src="/js/userScript.js"></script>
+<script src="/js/headerScript.js"></script>
+</html>

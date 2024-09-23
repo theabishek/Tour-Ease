@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels</title>
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/allHotels.css" />
+</head>
+
+<body>
+    <%- include('../partials/header') %>
+
+        <div class="container">
+            <h1>All Hotels</h1>
+
+            <div class="search-sort">
+                <input type="text" id="search" placeholder="Search..."
+                    value="<%= typeof query.search !== 'undefined' ? query.search : '' %>">
+                <select id="sort">
+                    <option value="">Sort by...</option>
+                    <optgroup label="Name">
+                        <option value="nameAsc" <%=query.sort==='nameAsc' ? 'selected' : '' %>>Name (A to Z)</option>
+                        <option value="nameDesc" <%=query.sort==='nameDesc' ? 'selected' : '' %>>Name (Z to A)</option>
+                    </optgroup>
+                    <optgroup label="Country">
+                        <option value="countryAsc" <%=query.sort==='countryAsc' ? 'selected' : '' %>>Country (A to Z)
+                        </option>
+                        <option value="countryDesc" <%=query.sort==='countryDesc' ? 'selected' : '' %>>Country (Z to A)
+                        </option>
+                    </optgroup>
+                    <optgroup label="Rating">
+                        <option value="ratingAsc" <%=query.sort==='ratingAsc' ? 'selected' : '' %>>Rating (Low to High)
+                        </option>
+                        <option value="ratingDesc" <%=query.sort==='ratingDesc' ? 'selected' : '' %>>Rating (High to
+                            Low)</option>
+                    </optgroup>
+                    <optgroup label="Price Range">
+                        <option value="priceLow" <%=query.sort==='priceLow' ? 'selected' : '' %>>Price (Low to High)
+                        </option>
+                        <option value="priceHigh" <%=query.sort==='priceHigh' ? 'selected' : '' %>>Price (High to Low)
+                        </option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="hotel-cards">
+                <% if (hotels.length> 0) { %>
+                    <%- include('../partials/hotelCard') %>
+                        <% } else { %>
+                            <h2 class="no-results-message">Sorry, No hotel found. Please try a different search.</h2>
+                            <% } %>
+            </div>
+
+            <div class="pagination">
+                <% if (hasPreviousPage) { %>
+                    <a href="/hotels?page=<%= currentPage - 1 %>" class="button">Previous</a>
+                    <% } %>
+                        <% if (hasNextPage) { %>
+                            <a href="/hotels?page=<%= currentPage + 1 %>" class="button">Next</a>
+                            <% } %>
+            </div>
+        </div>
+
+        <script src="/js/userScript.js"></script>
+        <script src="/js/headerScript.js"></script>
+        <script>
+            document.getElementById('search').addEventListener('input', function () {
+                fetchHotelsAndReplace();
+            });
+
+            document.getElementById('sort').addEventListener('change', function () {
+                fetchHotelsAndReplace();
+            });
+
+            async function fetchHotelsAndReplace() {
+                const searchValue = document.getElementById('search').value.trim();
+                const sortValue = document.getElementById('sort').value;
+                const queryParams = new URLSearchParams({ search: searchValue, sort: sortValue });
+
+                try {
+                    const response = await fetch(`/hotels?${queryParams.toString()}`);
+                    if (!response.ok) {
+                        throw new Error('Could not fetch hotels');
+                    }
+
+                    const newPageHtml = await response.text();
+                    const tempContainer = document.createElement('div');
+                    tempContainer.innerHTML = newPageHtml;
+
+                    const newHotelCards = tempContainer.querySelector('.hotel-cards');
+                    const noResultsMessage = tempContainer.querySelector('.no-results-message');
+
+                    const hotelsElement = document.querySelector('.hotel-cards');
+                    if (noResultsMessage) {
+                        hotelsElement.innerHTML = noResultsMessage.outerHTML;
+                    } else {
+                        hotelsElement.innerHTML = newHotelCards.innerHTML;
+                    }
+
+                } catch (error) {
+                    console.error("Error fetching hotels:", error);
+                }
+            }
+
+        </script>
+</body>
+
+</html>

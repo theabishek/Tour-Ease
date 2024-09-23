@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(34, 34, 34);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: auto;
+    margin: 0 5% 0 5%;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.search-sort {
+    margin-bottom: 20px;
+}
+
+.search-sort input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 200px;
+    margin-right: 10px;
+}
+
+.search-sort select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.destination-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Fixed width for cards */
+    width: auto;
+    grid-gap: 25px;
+}
+
+.destination-card {
+    border-radius: 30px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transition: color 0.3s, background-color 0.3s; /* Apply transition to the destination card */
+}
+
+.destination-card:hover {
+    color: rgb(255, 255, 255); /* Change text color on hover */
+    background-color: #294165;
+}
+
+.destination-card img {
+    border-radius: 20px;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-details {
+    padding: 0 15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-details h2 {
+    font-size: 24px;
+}
+
+.rating {
+    font-size: 20px;
+}
+
+.country {
+    padding: 0 15px 0 15px;
+    padding-top: 0;
+}
+
+.destination-card a {
+    text-decoration: none;
+    color: black;
+}
+
+.destination-card:hover a {
+    color: rgb(255, 255, 255); /* Change link color on hover */
+}
+
+/* Additional styles for country */
+.destination-card:hover .country {
+    color: rgb(255, 255, 255); /* Change country color on hover */
+}
+
+.destination-card a:active,
+.destination-card a:focus {
+    outline: none;
+}
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 10px 30px;
+    color: black;
+    text-decoration: none;
+    border-radius: 30px;
+    margin-top: 20px;
+    margin-right: 10px;
+    background-color: #007bff;
+}
+
+.pagination a:hover {
+    background-color: #0056b3;
+    font-weight: bold;
+}
+
+.button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive design */
+@media screen and (max-width: 1200px) {
+    .destination-cards {
+        grid-template-columns: repeat(3, 1fr); /* Change to 3 columns */
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .destination-cards {
+        grid-template-columns: repeat(2, 1fr); /* Change to 2 columns */
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .destination-cards {
+        grid-template-columns: 1fr; /* Change to 1 column */
+    }
+
+    .destination-card {
+        width: 100%; /* Take full width */
+    }
+}

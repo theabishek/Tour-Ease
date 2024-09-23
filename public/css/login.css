@@ -1,0 +1,142 @@
+body {
+    background-color: black;
+    color: white;
+    height: 100vh;
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)),url(/images/default/bg2.jpg);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    padding: 35px;
+}
+
+.login-form {
+    width: 400px;
+    padding: 20px 35px;
+    border-radius: 30px;
+    border: 3px solid rgb(23, 23, 23);
+    background-color: rgba(31, 31, 31, 0.9);
+}
+
+.error {
+    margin-bottom: 10px;
+    margin-top: 0px;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+    font-size: 16px;
+    width: 100%;
+    padding: 10px 20px;
+    height: max-content;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+}
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.submit {
+    font-size: 18px;
+    padding: 6px 25px;
+    border: none;
+    border-radius: 30px;
+    background-color: rgb(58, 80, 238);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px 0;
+}
+.submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submit-btn:hover .arrow {
+    transform: translateX(5px);
+}
+
+.divider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.divider-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.divider-text {
+    padding: 0 10px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.social-login-buttons {
+    display: flex;
+    justify-content: center;
+    /* Align buttons with space between */
+    width: 100%;
+    /* Ensure buttons take full width */
+}
+
+button.google-btn,
+button.facebook-btn {
+    margin: 0px 10px 0px;
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+button.google-btn:hover,
+button.facebook-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+button.google-btn img,
+button.facebook-btn img {
+    height: 50px;
+    width: auto;
+}
+
+p {
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+a {
+    color: rgb(58, 80, 238);
+    text-decoration: none;
+}
+
+a:hover {
+    font-weight: bold;
+}

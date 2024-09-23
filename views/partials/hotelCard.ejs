@@ -1,0 +1,16 @@
+<% for (const hotel of hotels) { %>
+    <div class="hotel-card">
+      <a href="/hotels/<%= hotel._id %>">
+        <img src="/<%= hotel.images[0] %>" alt="<%= hotel.hotelName %>">
+        <div class="top-card-details">
+          <h2><%= hotel.hotelName %></h2>
+          <p class="rating"><%= hotel.rating %>/5</p>
+        </div>
+        <div class="bottom-card-details">
+          <p class="location"><%= hotel.location.city %>, <%= hotel.location.country %></p>
+          <p class="base-price"><%= hotel.priceRange[0] %>-<%= hotel.priceRange[1] %>$</p>
+        </div>
+      </a>
+    </div>
+  <% } %>
+  

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Destination</title>
+    <style>
+        /* styles.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+    background-color: #1e1e1e;
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="file"] {
+    margin-bottom: 15px;
+}
+
+button[type="submit"],
+button[type="button"] {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+/* Add some spacing for better readability */
+form > * {
+    margin-bottom: 10px;
+}
+input[type="file"] {
+    display: block; /* Makes it fill the width */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px; /* Add some space below */
+}
+    </style>
+</head>
+
+<body>
+    <h1>Add Destination</h1>
+    <form id="destinationForm" action="/admin/addDestination" method="POST" enctype="multipart/form-data">
+        <!-- Automatically generated destID -->
+        <label for="destID">Destination ID:</label>
+        <input type="text" id="destID" name="destID" readonly>
+        <button type="button" id="refreshDestID">Refresh</button>
+        <br>
+
+        <!-- Other input fields for destination details -->
+        <label for="destination_name">Destination Name:</label>
+        <input type="text" id="destination_name" name="destination_name" required>
+        <br>
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" value="India" required>
+        <br>
+        <label for="activities">Activities:</label>
+        <textarea name="activities" id="activities"></textarea>
+        <br>
+        
+        <label for="best_for">Best For:</label>
+        <input type="text" id="best_for" name="best_for" value="Couple, Single, Family">
+        <br>
+        <label for="transport_options">Transport Options:</label>
+        <input type="text" id="transport_options" name="transport_options" value="Train, Airplane, Cab">
+        <br>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea>
+        <br>
+        <label for="images">Upload Images:</label>
+        <input type="file" id="images" name="images" multiple required>
+        <br>
+
+        <!-- Language -->
+        <label for="languages">Languages (comma-separated):</label>
+        <input type="text" id="languages" name="languages" value="Hindi, English" >
+        <br>
+
+        <!-- Cuisine -->
+        <label for="cuisine">Cuisine (comma-separated):</label>
+        <input type="text" id="cuisine" name="cuisine">
+        <br>
+
+        <!-- Best Time to Visit -->
+        <label for="best_time">Best Time to Visit (comma-separated):</label>
+        <input type="text" id="best_time" name="best_time">
+        <br>
+
+        <!-- Rating -->
+        <label for="rating">Rating:</label>
+        <input type="number" id="rating" name="rating" min="1" max="5" step="0.1" value="4.2">
+        <br>
+
+        <!-- Submit button -->
+        <button type="submit">Submit</button>
+    </form>
+
+<!-- Client-side script -->
+<script>
+    // Function to generate a unique destID
+    async function generateID() {
+        try {
+            let response = await fetch('/admin/generateID'); // Assuming there's a route for generating destID
+            let data = await response.json();
+            document.getElementById('destID').value = data.uniqueID; // Corrected to data.uniqueID
+        } catch (error) {
+            console.error('Error generating destID:', error);
+        }
+    }
+
+    // Call generateID function when the page loads
+    window.onload = generateID;
+
+    // Function to refresh destination ID
+    async function refreshDestID() {
+        try {
+            let response = await fetch('/admin/generateID'); // Assuming there's a route for generating destID
+            let data = await response.json();
+            document.getElementById('destID').value = data.uniqueID; // Corrected to data.uniqueID
+        } catch (error) {
+            console.error('Error generating destID:', error);
+        }
+    }
+
+    // Event listener for refresh button
+    document.getElementById('refreshDestID').addEventListener('click', refreshDestID);
+
+    // Function to handle form submission
+    document.getElementById('destinationForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        this.submit();
+    });
+</script>
+
+</body>
+
+</html>

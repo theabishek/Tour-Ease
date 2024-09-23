@@ -1,0 +1,134 @@
+/* General Styles */
+body {
+    background-image: url("/images/default/bg1.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5%;
+    margin: 2%;
+    height: 74vh;
+}
+
+.left-div {
+    width: 60%;
+}
+
+.right-div {
+    width: 30%;
+}
+
+/* Left Div (Optional Styling) */
+.left-div {
+    padding: 20px;
+}
+
+/* Right Div (Form) */
+.right-div {
+    border-radius: 30px;
+    padding: 10px 30px;
+    background-color: #f9f9f9;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.two-columns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.two-columns > div {
+    flex: 1;
+    margin-right: 10px; /* Adjust spacing as needed */
+}
+
+.two-columns > div:last-child {
+    margin-right: 0;
+}
+
+.terms-placeholder {
+    margin-left: 5px;
+}
+
+.submit {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.submit:hover {
+    background-color: #0056b3;
+}
+
+/* Alert Messages (Optional Styling) */
+.alert {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-div, .right-div {
+        width: 100%;
+    }
+}
+/* File Input Styling */
+input[type="file"] {
+    display: block;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+input[type="file"]::file-selector-button {
+    display: none;
+}
+
+.footer{
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}

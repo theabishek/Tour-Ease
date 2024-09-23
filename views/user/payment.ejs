@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <style>
+        *{
+            color: rgb(0, 0, 0);
+        }
+        /* Overall Styling */
+        body {
+            margin: 0;
+            background-color: rgb(104, 164, 255);
+            text-align: center; /* Center align all content */
+        }
+
+        /* Form Container */
+        .payment-form {
+            background-color: #fff;
+            border-radius: 30px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 30px;
+            text-align: left; /* Align form content to left */
+        }
+
+        h1 {
+            color: #000000;
+        }
+        h2 {
+            margin-bottom: 5px; 
+        }
+
+        /* Form Fields  */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input[type="text"] {
+            width: 100%; 
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; 
+        }
+
+        /* Card Payment Fields */
+        .card-fields {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Align fields next to each other */
+        }
+
+        /* Submit Button */
+        button[type="submit"] {
+            background-color: #008cba; 
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease; /* Add a hover effect */ 
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0077a2; 
+        } 
+
+        /* Responsive Considerations */
+        @media (max-width: 600px) {
+            .payment-form {
+                max-width: 95%;
+            }
+
+            .card-fields {
+                flex-direction: column; /* Stack fields on top of each other */
+            }
+
+            .card-fields input[type="text"] {
+                width: 100%; /* Take full width on smaller screens */
+                margin-bottom: 10px; /* Add space between stacked fields */
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <h1>Payment</h1>
+
+    <div class="payment-form">
+        <h2>Booking Details</h2>
+        <div>
+            <p>Booking ID: <%= booking.booking_id %></p>
+            <p>Hotel ID: <%= booking.hotel_id %></p>
+            <p>Check-in Date: <%= booking.check_in_date.toDateString() %></p>
+            <p>Check-out Date: <%= booking.check_out_date.toDateString() %></p>
+            <p>Number of Guests: <%= booking.number_of_guests %></p>
+            <p>Room Type: <%= booking.room_type %></p>
+            <p>Total Price: <%= booking.total_price %></p><hr><br>
+        </div>
+
+        <form action="/booking/payment/process" method="POST">
+            <input type="hidden" name="booking_id" value="<%= booking._id %>">
+            
+            <!-- Card Payment Fields -->
+            <div class="card-fields">
+                <div>
+                  <label for="card_number">Card Number:</label>
+                  <input type="text" id="card_number" name="card_number" required maxlength="19" onkeyup="formatCardNumber(this)"> 
+                </div>
+                <div>
+                    <label for="card_expiry">Expiry Date (MM/YY):</label>
+                    <input type="text" id="card_expiry" name="card_expiry" required maxlength="5" onkeyup="formatExpiryDate(this)"> 
+                </div>
+                <div>
+                  <label for="card_cvv">CVV:</label>
+                  <input type="text" id="card_cvv" name="card_cvv" required maxlength="3" onkeyup="formatCvv(this)"> 
+                </div>
+              </div>
+            
+            <button type="submit">Make Payment</button>
+        </form>
+    </div>
+    <!-- footer -->
+    <%- include('../partials/footer') %>
+
+    <script>
+        function formatCardNumber(inputField) {
+          let formatted = inputField.value.replace(/\D/g, '') // Remove non-digits
+                                        .match(/.{1,4}/g);  // Group every 4 digits
+          inputField.value = formatted ? formatted.join(' ') : '';
+        }
+    
+        function formatExpiryDate(inputField) {
+          let value = inputField.value.replace(/\D/g, ''); // Remove non-digits
+          let formatted = '';
+          if (value.length > 2) {
+            formatted = value.slice(0, 2) + '/' + value.slice(2); // Format MM/YY
+            if (parseInt(value.slice(0, 2)) > 12) { // Ensure first part doesn't exceed 12
+              formatted = '12/' + value.slice(2);
+            }
+          } else {
+            formatted = value;
+          }
+          inputField.value = formatted;
+        }
+    
+        function formatCvv(inputField) {
+          inputField.value = inputField.value.replace(/\D/g, '').slice(0, 3); 
+        }
+        
+     </script>
+<script src="/js/userScript.js"></script>
+<script src="/js/headerScript.js"></script>
+</body>
+</html>

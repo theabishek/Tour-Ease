@@ -1,0 +1,132 @@
+/* Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+/* Reset default margin and padding */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
+
+/* Body styles */
+body {
+	font-family: "Poppins", sans-serif;
+    background-color: rgb(34, 34, 34);
+    color: white;
+}
+
+a:visited,
+a:active {
+	color: #ffffff;
+}
+
+.container {
+	height: 100vh;
+	background-size: cover;
+	background-position: top;
+	background-repeat: no-repeat;
+	display:flex;
+	flex-direction: column;
+}
+
+#home-container {
+    background-size: cover;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/images/default/bg3.jpg);
+    animation: zoomOut 5s ease-out forwards; /* Adjust duration as needed */
+}
+
+@keyframes zoomOut {
+    0% {
+        background-size: 100% 100%;
+    }
+    100% {
+        background-size: 120% 120%; 
+    }
+}
+
+/* home */
+#home {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+}
+
+#home h1{
+    line-height: 1;
+    font-size: 75px;
+    padding-bottom: 0%;
+    margin-bottom: 4%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: moveText 2s ease-in-out forwards;
+}
+
+#home p {
+    font-size: 25px;
+    padding-top: 0%;
+    margin-top: 5%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	font-family: "Montserrat", sans-serif;
+}
+
+.travel {
+    font-weight: 700;
+    font-size: large;
+    margin: 20px;
+}
+
+button:hover {
+    background-color: rgb(0, 187, 255);
+}
+
+/* contact-us */
+
+.contact-us {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	background-color: #ffffff;
+	padding: 5%;
+    color: rgb(34, 34, 34);
+}
+.contact-left h1{
+    font-size: 60px;
+    padding-bottom: 0%;
+    margin-bottom: 0%;
+    line-height: 85%;
+}
+
+.contact-left {
+	flex: 1;
+    text-align: left;
+	margin-left: 5%;
+	margin-right: 8%;
+	width: max-content;
+}
+
+.contact-right {
+	display: flex;
+    text-align: right;
+    margin-right: 10%;
+    width: 20%;
+}
+
+.contact-right button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: rgb(255, 0, 102);
+    color: #fff;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.contact-right button:hover {
+    background-color: rgb(255, 0, 85)
+}

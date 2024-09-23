@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body{
+            background-color: rgb(104, 164, 255);
+        }
+        .thankyou-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .thankyou-container h1 {
+            font-size: 5em; /* Adjust font size as needed */
+            color: #ffffff; /* Adjust font color */
+        }
+
+        .thankyou-container p {
+            font-size: 2em; /* Adjust font size as needed */
+            color: #f0f0f0; /* Adjust font color */
+        }
+    </style>
+</head>
+<body>
+    <div class="thankyou-container">
+        <h1>Thank You</h1>
+        <p>Your payment was successful!</p>
+    </div>
+
+    <script>
+        // Redirect to home page after 3 seconds
+        setTimeout(function() {
+            window.location.href = "/";
+        }, 3000);
+    </script>
+</body>
+</html>

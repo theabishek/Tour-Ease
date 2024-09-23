@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= destination.destinationName %> Details
+    </title>
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/details.css">
+
+</head>
+
+<body>
+    <%- include('../partials/header') %>
+        <div class="container">
+            <div class="left-container"> 
+                <div class="heading">
+                    <h1>
+                        <%= destination.destinationName %>
+                    </h1>
+                    <h4>
+                        <%= destination.rating %>/5
+                    </h4>
+                </div>
+                <h3>
+                    <%= destination.country %>
+                </h3>
+                <div class="slideshow-container">
+                    <% destination.images.forEach((image, index)=> { %>
+                        <div class="slideshow-image" style="display: none;">
+                            <img src="/<%= image %>" alt="<%= destination.destinationName %> Image <%= index + 1 %>">
+                        </div>
+                        <% }) %>
+                </div>
+                <div class="dots">
+                    <% destination.images.forEach((_, index)=> { %>
+                        <span class="slideshow-dot" data-index="<%= index %>"></span>
+                        <% }) %>
+                </div>
+                <div class="book-button">
+                    <h2>
+                        <%= destination.destinationName %>
+                    </h2>
+                    <a href="/desBook/destination/<%= destination._id %>" class="book-now-button">Book Now</a>
+                </div>
+                <div class="reviews">
+                    <h2>Reviews</h2>
+                    <% if (destination.reviews.length === 0) { %>
+                        <p>No reviews yet.</p>
+                    <% } else { %>
+                        <% destination.reviews.forEach(review => { %>
+                            <div class="review">
+                                <h4>
+                                    <% if (review.user) { %> 
+                                        <%= review.user.name %> 
+                                    <% } else { %>
+                                        Anonymous User
+                                    <% } %>
+                                </h4>
+                                <p>Rating: <%= review.rating %>/5</p>
+                                <p><%= review.comment %></p>
+                                <% if (user && user._id.toString() === review.user._id.toString()) { %>
+                                    <form id="deleteForm-<%= review._id %>"
+                                        action="/destinations/<%= destination._id %>/reviews/<%= review._id %>/delete"
+                                        method="POST">
+                                        <button class="delete-btn" type="button"
+                                            onclick="confirmDelete('<%= review._id %>')">Delete</button>
+                                    </form>
+                                <% } %>
+                            </div>
+                        <% }) %>
+                    <% } %>
+                    
+                    <!-- Add Review Section -->
+                    <% if (user) { %>
+                        <div class="add-review">
+                            <h2>Add a Review</h2>
+                            <form action="/destinations/<%= destination._id %>/reviews" method="POST">
+                                <label for="rating">Rating (1-5):</label>
+                                <input type="number" name="rating" id="rating" min="1" max="5" required>
+                                <label for="comment">Comment:</label>
+                                <textarea name="comment" id="comment" rows="4" required></textarea>
+                                <button type="submit">Submit</button>
+                            </form>
+                        </div>
+                    <% } else { %>
+                        <div class="login-link">
+                            <p>Login to add a review. Don't have an account? <a href="/auth/register">Sign up here</a></p>
+                        </div>
+                    <% } %>
+                </div>
+                
+            </div>
+            <div class="right-container">
+                <div class="other-details">
+                    <h4 style="margin-bottom: 10px"><%= destination.destID %> </h4>
+                    <h3>Description</h3>
+                        <div class="detail-content" id="description">
+                            <p>
+                                <%= destination.description %>
+                            </p>
+                        </div>
+                        <h3>Activities</h3>
+                        <div class="detail-content" id="activities">
+                            <ul>
+                                <% destination.activities.forEach(activity=> { %>
+                                    <li>
+                                        <%= activity %><br>
+                                    </li>
+                                    <% }) %>
+                            </ul>
+                        </div>
+                        <h3>Best For</h3>
+                        <div class="detail-content" id="best-for">
+                            <ul>
+                                <% destination.bestFor.forEach(item=> { %>
+                                    <li>
+                                        <%= item %>
+                                    </li>
+                                    <% }) %>
+                            </ul>
+                        </div>
+                        <h3>Transport Options</h3>
+                        <div class="detail-content" id="transport">
+                            <ul>
+                                <% destination.transportOptions.forEach(option=> { %>
+                                    <li>
+                                        <%= option %>
+                                    </li>
+                                    <% }) %>
+                            </ul>
+                        </div>
+                        <h3>Languages</h3>
+                        <div class="detail-content" id="languages">
+                            <ul>
+                                <% destination.languages.forEach(language=> { %>
+                                    <li>
+                                        <%= language %>
+                                    </li>
+                                    <% }) %>
+                            </ul>
+                        </div>
+                        <h3>Famous Cuisine</h3>
+                        <div class="detail-content" id="cuisine">
+                            <ul>
+                                <% destination.cuisine.forEach(cuisine=> { %>
+                                    <li>
+                                        <%= cuisine %>
+                                    </li>
+                                    <% }) %>
+                            </ul>
+                        </div>
+                        <h3>Best Time to Visit</h3>
+                        <div class="detail-content" id="best-time">
+                            <ul>
+                                <% destination.bestTime.forEach(time=> { %>
+                                    <%= time %>
+                                        <% }) %>
+                            </ul>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <%- include('../partials/footer') %>
+    
+
+        <script src="/js/userScript.js"></script>
+        <script src="/js/headerScript.js"></script>
+        <script src="/js/detailScript.js"></script>
+        <script>
+            function confirmDelete(reviewId) {
+                if (confirm("Are you sure you want to delete this review?")) {
+                    document.getElementById('deleteForm-' + reviewId).submit();
+                    return true;
+                }
+                return false;
+            }
+        </script>        
+</body>
+
+</html>

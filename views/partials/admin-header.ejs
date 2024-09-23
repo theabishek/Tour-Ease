@@ -1,0 +1,64 @@
+<div class="header">
+  <nav class="nav">
+    <img src="/images/default/white-logo.png" alt="" class="logo" id="logo" />
+    <ul>
+      <li class="nav-link"><a href="/adminDashboard/logout">Log Out</a></li>
+    </ul>
+  </nav>
+</div>
+
+<style>
+  .logo {
+    width: 150px;
+    height: max-content;
+    margin-left: 5%;
+    cursor: pointer;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #202020;
+    height: 60px;
+  }
+
+  .nav ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin-right: 20px;
+  }
+
+  .nav a {
+    white-space: nowrap;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .nav-link a::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 1px; /* Reduced the gap */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #006aff;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .nav-link:hover a::before {
+    visibility: visible;
+    width: 80%;
+  }
+</style>

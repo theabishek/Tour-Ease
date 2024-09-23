@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Hotel</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <style>
+        * {
+            color: #333;
+        }
+
+        /* General Styles */
+        body {
+            background-color: rgb(104, 164, 255);
+            /* Light background for better focus on form*/
+            color: #333;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: #fff;
+            max-width: 500px;
+            margin: 20px auto;
+            /* Centers the form horizontally */
+            padding: 30px;
+            box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.801);
+            border-radius: 30px;
+        }
+
+        /* Form Header */
+        h1{
+            font-size: 50px;
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Labels and Inputs */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Submit Button */
+        button[type="submit"] {
+            background-color: #4CAF50;
+            /* Positive action color */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            /* Smooth transition */
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+            /* Slightly darker on hover */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .form-container {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('../partials/header') %>
+    <h1>Book Hotel</h1>
+    <div class="form-container">
+        <form action="/booking/hotel/<%= hotel._id %>/confirm" method="POST">
+            <input type="hidden" name="hotel_id" value="<%= hotel._id %>">
+
+            <h2>Hotel Details</h2>
+            <p><strong>Name:</strong>
+                <%= hotel.hotelName %>
+            </p>
+            <p><strong>Location:</strong>
+                <%= hotel.location.city %>, <%= hotel.location.country %>
+            </p><br>
+            <hr><br>
+            <h2>Booking Details</h2>
+
+            <label for="check_in_date">Check-in Date:</label>
+            <input type="date" id="check_in_date" name="check_in_date"
+                min="<%= new Date().toISOString().split('T')[0] %>" required><br>
+
+            <label for="check_out_date">Check-out Date:</label>
+            <input type="date" id="check_out_date" name="check_out_date"
+                min="<%= new Date().toISOString().split('T')[0] %>" required><br>
+
+            <label for="number_of_guests">Number of Guests:</label>
+            <input type="number" id="number_of_guests" name="number_of_guests" min="1" required><br>
+
+            <label for="room_type">Room Type:</label>
+            <select id="room_type" name="room_type" required>
+                <% hotel.rooms.forEach(room=> { %>
+                    <option value="<%= room.roomType %>">
+                        <%= room.roomType %> - <%= room.roomPrice %> / night (Capacity: <%= room.roomCapacity %>)
+                    </option>
+                    <% }); %>
+            </select><br>
+
+            <label for="total_price">Total Price:</label>
+            <input type="number" id="total_price" name="total_price" required readonly><br>
+
+            <button type="submit">Confirm Booking</button>
+        </form>
+    </div>
+    <!-- footer -->
+    <%- include('../partials/footer') %>
+
+
+    <script>
+        var hotelRooms = JSON.parse('<%- JSON.stringify(hotel.rooms) %>');
+
+        // Function to calculate total price and validate dates
+        function updateTotalPrice() {
+            const roomType = document.getElementById('room_type').value;
+            const selectedRoom = hotelRooms.find(room => room.roomType === roomType);
+
+            const numberOfGuests = parseInt(document.getElementById('number_of_guests').value);
+            const roomCapacity = selectedRoom.roomCapacity;
+
+            // Round up the number of guests to the nearest multiple of room capacity
+            const roundedGuests = Math.ceil(numberOfGuests / roomCapacity) * roomCapacity;
+
+            // Get check-in and check-out dates
+            const checkInDate = new Date(document.getElementById('check_in_date').value);
+            const checkOutDate = new Date(document.getElementById('check_out_date').value);
+
+            // Calculate the number of days
+            const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+            const numberOfDays = Math.round(Math.abs((checkOutDate - checkInDate) / oneDay));
+
+            // Additional validation
+            if (checkOutDate <= checkInDate) {
+                alert('Check-out date must be after check-in date!');
+                document.getElementById('check_out_date').value = '';
+                document.getElementById('total_price').value = '';
+                return;
+            }
+
+            // Calculate total price
+            const totalPrice = numberOfDays * selectedRoom.roomPrice * (roundedGuests / roomCapacity);
+            document.getElementById('total_price').value = totalPrice.toFixed(2);
+        }
+
+        // Event listeners for dynamic price update and date validation 
+        document.getElementById('room_type').addEventListener('change', updateTotalPrice);
+        document.getElementById('number_of_guests').addEventListener('change', updateTotalPrice);
+        document.getElementById('check_in_date').addEventListener('change', updateTotalPrice);
+        document.getElementById('check_out_date').addEventListener('change', updateTotalPrice);
+    </script>
+<script src="/js/userScript.js"></script>
+<script src="/js/headerScript.js"></script>
+</body>
+
+</html>
