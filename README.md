@@ -17,7 +17,6 @@ Tourease is a web application designed for users to explore and book various tra
 - **Frontend**: EJS, CSS, JavaScript
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
-- **Session Management**: express-session with MongoDB session store (connect-mongo)
 - **Authentication**: OAuth for secure user authentication
 
 ## Installation
