@@ -57,28 +57,28 @@ To run this project locally, follow these steps:
 Below are some screenshots of the application:
 
 - **Home Page**  
-![Home Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/main/screenshots/home-page.jpg)
+![Home Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/admin-panel-page.png)
 
 - **Destination Page**  
-![Destination Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/main/screenshots/destination-page.jpg)
+![Destination Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/blob/main/screenshots/destination-page.jpg)
 
 - **Hotel Page**  
-![Hotel Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/main/screenshots/hotel-page.jpg)
+![Hotel Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/blob/main/screenshots/hotel-page.jpg)
 
 - **Hotel Detail Page**  
-![Hotel Detail Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/main/screenshots/hotel-detail-page.jpg)
+![Hotel Detail Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/blob/main/screenshots/hotel-detail-page.jpg)
 
 - **Destination Detail Page**  
-![Destination Detail Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/main/screenshots/destination-detail-page.jpg)
+![Destination Detail Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/blob/main/screenshots/destination-detail-page.jpg)
 
 - **Registration Page**  
-![Registration Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/main/screenshots/registration-page.jpg)
+![Registration Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/blob/main/screenshots/registration-page.jpg)
 
 - **Login Page**  
-![Login Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/main/screenshots/login-page.jpg)
+![Login Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/blob/main/screenshots/login-page.jpg)
 
 - **Admin Panel Page**  
-![Admin Panel Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/main/screenshots/admin-panel-page.jpg)
+![Admin Panel Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/blob/main/screenshots/admin-panel-page.jpg)
 
 ## Troubleshooting
 
