@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const path = require('path');
+const MongoStore = require('connect-mongo'); // Add this line
 const authRoutes = require('./routes/authRoutes');
 const homeRoutes = require('./routes/homeRoutes');
 const adminRoutes = require('./routes/adminRoutes');
@@ -33,8 +34,12 @@ app.use(session({
     secret: 'your-secret-key',
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({ 
+        mongoUrl: 'mongodb://localhost:27017/tourease_db',
+        collectionName: 'sessions' // Optional: specify a collection name
+    }),
     cookie: {
-        secure: false,
+        secure: false, // Set to true if using HTTPS
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000 // 24 hours
     }
@@ -68,7 +73,7 @@ app.use((req, res, next) => {
 
 // General error handler
 app.use((err, req, res, next) => {
-    console.error(err.stack);
+    console.error(err.stack); // Log the full error stack for debugging
     res.status(500).send('Something went wrong! Please try again later.');
 });
 
