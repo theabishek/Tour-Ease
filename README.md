@@ -25,8 +25,8 @@ To run this project locally, follow these steps:
 
 1. **Clone the Repository**:
    ```bash
-   git clone <repository-url>
-   cd tourease
+   git clone https://github.com/theabishek/Tour-Ease.git
+   cd Tour-Ease
    ```
 
 2. **Install Dependencies**:
