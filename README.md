@@ -49,6 +49,9 @@ To run this project locally, follow these steps:
 5. **Access the Application**:
    Open your browser and navigate to `http://localhost:3000`.
 
+6. **Hotels and Destination**:
+   You have to add hotels and destination by yourself because no API is used. You can sign up as admin and from admin panel you can add destination & hotels.
+
 ## Screenshots
 
 Below are some screenshots of the application:
