@@ -57,28 +57,28 @@ To run this project locally, follow these steps:
 Below are some screenshots of the application:
 
 - **Home Page**  
-![Home Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/admin-panel-page.png)
+![Home Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/home-page.png)
 
 - **Destination Page**  
-![Destination Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/destination-page.jpg)
+![Destination Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/destination-page.png)
 
 - **Hotel Page**  
-![Hotel Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/hotel-page.jpg)
+![Hotel Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/hotels-page.png)
 
 - **Hotel Detail Page**  
-![Hotel Detail Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/hotel-detail-page.jpg)
+![Hotel Detail Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/hotel-detail-page.png)
 
 - **Destination Detail Page**  
-![Destination Detail Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/destination-detail-page.jpg)
+![Destination Detail Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/destination-detail-page.png)
 
 - **Registration Page**  
-![Registration Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/registration-page.jpg)
+![Registration Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/registration-page.png)
 
 - **Login Page**  
-![Login Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/login-page.jpg)
+![Login Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/login-page.png)
 
 - **Admin Panel Page**  
-![Admin Panel Page](https://raw.githubusercontent.com/theabishek/Tour-Ease/blob/main/screenshots/admin-panel-page.jpg)
+![Admin Panel Page](https://github.com/theabishek/Tour-Ease/blob/main/screenshots/admin-panel-page.png)
 
 ## Troubleshooting
 
